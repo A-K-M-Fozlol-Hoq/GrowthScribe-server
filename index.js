@@ -31,34 +31,19 @@ client.connect((err) => {
 
   app.post('/addUser', (req, res) => {
     // fullName,email, age, address, phone, role, nid, profile,vehicleType
-    const fullName = req.body.fullName;
+    const name = req.body.name;
     const email = req.body.email;
-    const age = req.body.age;
-    const address = req.body.address;
-    const phone = req.body.phone;
-    const role = req.body.role;
-    const nid = req.body.nid;
-    const profile = req.body.profile;
-    const vehicleType = req.body.vehicleType;
-    console.log(req.body);
-    userCollection.find({ email: email }).toArray((err, users) => {
-      userCollection
-        .insertOne({
-          fullName,
-          email,
-          age: parseInt(age),
-          address,
-          phone,
-          role,
-          nid,
-          profile,
-          vehicleType,
-        })
-        .then((result) => {
-          // console.log(result);
-          res.send(result.acknowledged);
-        });
-    });
+    const details = req.body.details;
+    userCollection
+      .insertOne({
+        name,
+        email,
+        details,
+      })
+      .then((result) => {
+        // console.log(result);
+        res.send(result.acknowledged);
+      });
   });
 
   app.get('/getUsers', (req, res) => {
